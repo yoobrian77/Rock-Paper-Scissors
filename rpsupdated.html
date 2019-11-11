@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock, Paper, Scissors!</title>
+    </head>
+    
+    <body>
+        <button id="rock" type="button"></button>
+        <button id="paper" type="button"></button>
+        <button id="scissors" type="button"></button>
+
+        <div id="results" type="textArea">Results</div>
+
+        <script>
+            function computerPlay() {
+                let choice = Math.floor(Math.random()*3);
+                switch(choice) {
+                    case 0: {
+                        return "Rock"; 
+                    }
+                    case 1: {
+                        return "Paper";
+                    }  
+                    case 2: {
+                        return "Scissors"
+                    }
+                    default: {
+                        return "Didn't work";
+                    }
+                }
+            }
+        
+            function playRound(playerSelection, computerSelection) {
+                let player = playerSelection.toLowerCase();
+                let computer = computerSelection.toLowerCase();
+            
+                if(player===computer) {
+                    console.log("You tied!");
+                    return "tie";
+                }
+                if(computer==="rock") {
+                    if(player==="scissors") {
+                        console.log("You lose, rock beats scissors!");
+                        return "lose";
+                    }
+                    else {
+                        console.log("You win, paper beats rock!");
+                        return "win";
+                    }
+                }
+                if(computer==="paper") {
+                    if(player==="rock") {
+                        console.log("You lose, paper beats rock!");
+                        return "lose";
+                    }
+                    else {
+                        console.log("You win, scissors beats paper!");
+                        return "win";
+                    }
+                }
+                if(computer==="scissors") {
+                    if(player==="paper") {
+                        console.log("You lose, scissors beats paper!");
+                        return "lose";
+                    }
+                    else {
+                        console.log("You win, rock beats scissors!");
+                        return "win";
+                    }
+                }
+            }
+            
+            function game() {
+                let computerScore = 0;
+                let playerScore = 0;
+                while(computerScore < 5 && playerScore <5){
+                    computerSelection = computerPlay();
+                    // (cheating!) console.log("computer chose " + computerSelection);
+                    playerSelection = window.prompt("Choose Rock, Paper, Scissors!");
+                    let result = playRound(playerSelection, computerSelection);
+                    if(result === "win") playerScore++;
+                    if(result === "lose") computerScore++;
+                }
+                if(playerScore > computerScore) {
+                    return "You win 5 to " + computerScore + "!";
+                }
+                else {
+                    return "You lose " + playerScore + " to 5 :("; 
+                }
+            }
+            
+            
+            const rock = document.querySelector("#rock");
+            rock.addEventListener('click', (e) => {
+                playRound("rock", computerPlay());
+            });
+            const paper = document.querySelector("#paper");
+            paper.addEventListener('click', (e) => {
+                playRound("paper", computerPlay());
+            });
+            const scissors = document.querySelector("#scissors");
+            scissors.addEventListener('click', (e) => {
+                playRound("scissors", computerPlay());
+            });
+        </script>
+    </body>
+</html>
